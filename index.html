@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>포트폴리오</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --primary:#1a1a2e;
+    --accent:#e8b86d;
+    --accent2:#c97d4a;
+    --bg:#faf8f4;
+    --bg2:#f2ede4;
+    --text:#1a1a2e;
+    --text2:#6b6460;
+    --card:#ffffff;
+    --border:#e0d8cc;
+    --serif:'Noto Serif KR',serif;
+    --sans:'Noto Sans KR',sans-serif;
+  }
+  body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,244,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 2rem}
+  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+  .nav-logo{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:var(--primary)}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{font-size:0.85rem;color:var(--text2);text-decoration:none;transition:color 0.2s;letter-spacing:0.03em}
+  .nav-links a:hover{color:var(--accent2)}
+  .admin-btn{font-size:0.78rem;padding:6px 14px;border:1px solid var(--accent2);border-radius:20px;color:var(--accent2);background:none;cursor:pointer;font-family:var(--sans);transition:all 0.2s}
+  .admin-btn:hover{background:var(--accent2);color:#fff}
+  .admin-btn.active{background:var(--accent2);color:#fff}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:80px 2rem 4rem;background:linear-gradient(135deg,#1a1a2e 0%,#2d2450 50%,#1a1a2e 100%);position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(232,184,109,0.12) 0%,transparent 70%);pointer-events:none}
+  .hero::after{content:'';position:absolute;bottom:-20%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(201,125,74,0.08) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%}
+  .hero-text h1{font-family:var(--serif);font-size:3rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:1rem}
+  .hero-text .subtitle{font-size:1.1rem;color:rgba(255,255,255,0.6);margin-bottom:0.5rem;letter-spacing:0.05em;font-weight:300}
+  .hero-text .tagline{font-size:1rem;color:var(--accent);font-family:var(--serif);margin-bottom:2rem}
+  .hero-text p{color:rgba(255,255,255,0.75);font-size:0.95rem;line-height:1.8;margin-bottom:2rem}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{padding:12px 28px;background:var(--accent);color:var(--primary);border:none;border-radius:30px;font-family:var(--sans);font-weight:700;font-size:0.9rem;cursor:pointer;text-decoration:none;transition:all 0.25s}
+  .btn-primary:hover{background:var(--accent2);color:#fff}
+  .btn-outline{padding:12px 28px;border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:30px;font-family:var(--sans);font-size:0.9rem;cursor:pointer;text-decoration:none;background:none;transition:all 0.25s}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+  .hero-photo-wrap{display:flex;justify-content:center}
+  .hero-photo{width:280px;height:280px;border-radius:50%;border:4px solid var(--accent);overflow:hidden;background:#2d2450;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+  .hero-photo img{width:100%;height:100%;object-fit:cover}
+  .hero-photo .photo-placeholder{color:rgba(255,255,255,0.4);font-size:0.85rem;text-align:center;padding:1rem}
+  .photo-edit-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;border-radius:50%;flex-direction:column;gap:4px}
+  .hero-photo:hover .photo-edit-overlay{display:flex}
+  .photo-edit-overlay span{color:#fff;font-size:0.75rem}
+  .hero-badges{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1.5rem}
+  .badge{padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:500}
+  .badge-gold{background:rgba(232,184,109,0.2);color:var(--accent);border:1px solid rgba(232,184,109,0.3)}
+  .badge-white{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15)}
+
+  /* SECTION COMMON */
+  section{padding:5rem 2rem}
+  .section-inner{max-width:1100px;margin:0 auto}
+  .section-label{font-size:0.75rem;letter-spacing:0.15em;color:var(--accent2);text-transform:uppercase;font-weight:500;margin-bottom:0.5rem}
+  .section-title{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--primary);margin-bottom:0.5rem}
+  .section-divider{width:40px;height:3px;background:var(--accent);margin-bottom:2.5rem;border-radius:2px}
+
+  /* ABOUT */
+  #about{background:var(--bg)}
+  .about-grid{display:grid;grid-template-columns:1fr 2fr;gap:3rem;align-items:start}
+  .about-info{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+  .info-row{padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:1rem;font-size:0.9rem}
+  .info-row:last-child{border-bottom:none}
+  .info-label{color:var(--text2);font-size:0.8rem;white-space:nowrap}
+  .info-value{color:var(--text);font-weight:500;text-align:right}
+  .about-text p{color:var(--text2);line-height:1.9;font-size:0.95rem;margin-bottom:1rem}
+
+  /* ACTIVITIES */
+  #activities{background:var(--bg2)}
+  .activities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+  .activity-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:transform 0.2s,box-shadow 0.2s}
+  .activity-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(26,26,46,0.08)}
+  .activity-type{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:0.5rem}
+  .activity-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:0.3rem}
+  .activity-period{font-size:0.8rem;color:var(--text2);margin-bottom:0.8rem}
+  .activity-desc{font-size:0.88rem;color:var(--text2);line-height:1.7}
+
+  /* PROJECTS */
+  #projects{background:var(--bg)}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem}
+  .project-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s}
+  .project-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(26,26,46,0.08)}
+  .project-img{width:100%;height:180px;background:linear-gradient(135deg,var(--bg2),var(--border));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer}
+  .project-img img{width:100%;height:100%;object-fit:cover}
+  .project-img .img-placeholder{color:var(--text2);font-size:0.85rem;text-align:center}
+  .img-edit-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center}
+  .project-img:hover .img-edit-overlay{display:flex}
+  .img-edit-overlay span{color:#fff;font-size:0.8rem;background:rgba(0,0,0,0.5);padding:6px 14px;border-radius:20px}
+  .project-body{padding:1.25rem}
+  .project-role{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:0.3rem}
+  .project-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:0.6rem}
+  .project-desc{font-size:0.88rem;color:var(--text2);line-height:1.7;margin-bottom:1rem}
+  .project-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{padding:3px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-size:0.72rem;color:var(--text2)}
+
+  /* GALLERY */
+  #gallery{background:var(--bg2)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+  .gallery-item{aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--bg);border:1px solid var(--border);cursor:pointer;position:relative;transition:transform 0.2s}
+  .gallery-item:hover{transform:scale(1.02)}
+  .gallery-item img{width:100%;height:100%;object-fit:cover}
+  .gallery-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:var(--text2);font-size:0.8rem}
+  .gallery-overlay{position:absolute;inset:0;background:rgba(26,26,46,0.6);display:none;align-items:center;justify-content:center}
+  .gallery-item:hover .gallery-overlay{display:flex}
+  .gallery-overlay span{color:#fff;font-size:0.8rem}
+  .add-gallery-btn{aspect-ratio:1;border-radius:12px;border:2px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:var(--text2);font-size:0.8rem;cursor:pointer;transition:border-color 0.2s,color 0.2s;background:none;font-family:var(--sans)}
+  .add-gallery-btn:hover{border-color:var(--accent);color:var(--accent2)}
+
+  /* VIDEO */
+  #videos{background:var(--bg)}
+  .videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem}
+  .video-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  .video-embed{width:100%;aspect-ratio:16/9;background:var(--primary);position:relative;display:flex;align-items:center;justify-content:center}
+  .video-embed iframe{width:100%;height:100%;border:none}
+  .video-embed .video-placeholder{color:rgba(255,255,255,0.5);font-size:0.85rem;text-align:center;padding:1rem}
+  .play-btn{width:56px;height:56px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .video-info{padding:1rem}
+  .video-title{font-weight:600;font-size:0.95rem;margin-bottom:0.3rem}
+  .video-desc{font-size:0.85rem;color:var(--text2)}
+
+  /* CONTACT */
+  #contact{background:linear-gradient(135deg,#1a1a2e 0%,#2d2450 100%);color:#fff}
+  #contact .section-title{color:#fff}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  .contact-item{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+  .contact-item:last-child{border-bottom:none}
+  .contact-icon{width:40px;height:40px;border-radius:50%;background:rgba(232,184,109,0.15);border:1px solid rgba(232,184,109,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+  .contact-label{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:2px}
+  .contact-value{font-size:0.95rem;font-weight:500}
+  .contact-form{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1.5rem}
+  .form-group{margin-bottom:1rem}
+  .form-group label{display:block;font-size:0.8rem;color:rgba(255,255,255,0.6);margin-bottom:6px}
+  .form-group input,.form-group textarea{width:100%;padding:10px 14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-family:var(--sans);font-size:0.9rem;outline:none;transition:border-color 0.2s}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+  .form-group textarea{height:100px;resize:none}
+
+  /* FOOTER */
+  footer{background:#0f0f1e;color:rgba(255,255,255,0.4);text-align:center;padding:2rem;font-size:0.8rem}
+
+  /* ADMIN */
+  .login-modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+  .login-modal.open{display:flex}
+  .login-box{background:var(--card);border-radius:20px;padding:2.5rem;width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+  .login-title{font-family:var(--serif);font-size:1.3rem;font-weight:700;margin-bottom:0.3rem}
+  .login-sub{font-size:0.85rem;color:var(--text2);margin-bottom:1.5rem}
+  .login-field{margin-bottom:1rem}
+  .login-field label{display:block;font-size:0.8rem;color:var(--text2);margin-bottom:6px}
+  .login-field input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-family:var(--sans);font-size:0.9rem;outline:none;transition:border-color 0.2s;background:var(--bg)}
+  .login-field input:focus{border-color:var(--accent)}
+  .login-err{color:#c0392b;font-size:0.82rem;margin-top:0.5rem;display:none}
+  .login-submit{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-family:var(--sans);font-weight:600;font-size:0.95rem;cursor:pointer;margin-top:0.5rem;transition:background 0.2s}
+  .login-submit:hover{background:#2d2450}
+  .login-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text2);line-height:1}
+  .login-box{position:relative}
+
+  /* EDIT controls */
+  .editable{outline:none;transition:background 0.2s,border-radius 0.2s}
+  .edit-mode .editable{background:rgba(232,184,109,0.08);border-radius:6px;cursor:text;padding:2px 4px}
+  .edit-mode .editable:hover{background:rgba(232,184,109,0.15)}
+  .edit-mode .editable:focus{background:rgba(232,184,109,0.2);box-shadow:0 0 0 2px rgba(232,184,109,0.4)}
+  .edit-bar{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:200;background:var(--primary);color:#fff;border-radius:30px;padding:10px 20px;display:none;align-items:center;gap:1rem;box-shadow:0 8px 30px rgba(0,0,0,0.3);font-size:0.85rem}
+  .edit-bar.show{display:flex}
+  .edit-bar span{color:rgba(255,255,255,0.7)}
+  .edit-bar button{padding:6px 16px;border-radius:20px;border:none;font-family:var(--sans);font-size:0.8rem;cursor:pointer;transition:all 0.2s}
+  .btn-save{background:var(--accent);color:var(--primary);font-weight:700}
+  .btn-logout{background:rgba(255,255,255,0.1);color:#fff}
+  .btn-add{background:rgba(255,255,255,0.15);color:#fff}
+  .edit-badge{position:fixed;top:70px;right:1.5rem;z-index:90;background:var(--accent);color:var(--primary);font-size:0.72rem;font-weight:700;padding:5px 12px;border-radius:20px;display:none}
+  .edit-badge.show{display:block}
+
+  /* ADD buttons in edit mode */
+  .add-card-btn{border:2px dashed var(--border);border-radius:16px;padding:2rem;text-align:center;color:var(--text2);cursor:pointer;background:none;font-family:var(--sans);width:100%;font-size:0.88rem;transition:border-color 0.2s,color 0.2s;display:none}
+  .edit-mode .add-card-btn{display:block}
+  .add-card-btn:hover{border-color:var(--accent);color:var(--accent2)}
+
+  .delete-btn{position:absolute;top:8px;right:8px;background:rgba(192,57,43,0.85);color:#fff;border:none;border-radius:50%;width:26px;height:26px;font-size:0.85rem;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1}
+  .edit-mode .activity-card,.edit-mode .project-card,.edit-mode .gallery-item,.edit-mode .video-card{position:relative}
+  .edit-mode .delete-btn{display:flex}
+
+  /* Mobile */
+  @media(max-width:768px){
+    .hero-inner{grid-template-columns:1fr;gap:2rem;text-align:center}
+    .hero-text h1{font-size:2rem}
+    .hero-photo{width:200px;height:200px}
+    .hero-photo-wrap{order:-1}
+    .hero-cta{justify-content:center}
+    .hero-badges{justify-content:center}
+    .about-grid{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+  }
+
+  /* Input file hidden */
+  input[type=file]{display:none}
+  
+  /* Smooth scroll */
+  html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" id="nav-name" contenteditable="false">나의 포트폴리오</div>
+    <ul class="nav-links">
+      <li><a href="#about">자기소개</a></li>
+      <li><a href="#activities">활동</a></li>
+      <li><a href="#projects">프로젝트</a></li>
+      <li><a href="#gallery">갤러리</a></li>
+      <li><a href="#videos">동영상</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+    <button class="admin-btn" id="adminToggleBtn" onclick="openLogin()">관리자</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="subtitle editable" contenteditable="false" id="hero-subtitle">고등학교 3학년 · 취업 준비생</div>
+      <h1 class="editable" contenteditable="false" id="hero-name">홍길동</h1>
+      <div class="tagline editable" contenteditable="false" id="hero-tagline">"성실함과 열정으로 성장하는 인재"</div>
+      <p class="editable" contenteditable="false" id="hero-intro">안녕하세요! 저는 현재 취업을 준비하고 있는 고등학생입니다. 다양한 교내외 활동을 통해 실무 역량을 키워왔으며, 팀워크와 책임감을 중요하게 생각합니다. 배움에 대한 열정과 성실한 자세로 회사에 기여하고 싶습니다.</p>
+      <div class="hero-badges">
+        <span class="badge badge-gold editable" contenteditable="false">📌 관심 직무: 사무직</span>
+        <span class="badge badge-white editable" contenteditable="false">📍 서울 거주</span>
+        <span class="badge badge-white editable" contenteditable="false">🎓 2025년 졸업 예정</span>
+      </div>
+      <div class="hero-cta" style="margin-top:2rem">
+        <a href="#contact" class="btn-primary">연락하기</a>
+        <a href="#projects" class="btn-outline">프로젝트 보기</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo" id="heroPhotoWrap" onclick="triggerPhotoUpload()">
+        <img src="" alt="" id="heroPhotoImg" style="display:none">
+        <div class="photo-placeholder" id="heroPhotoPlaceholder">📷<br>사진을<br>업로드해주세요</div>
+        <div class="photo-edit-overlay" id="photoEditOverlay" style="display:none">
+          <span>📷 사진 변경</span>
+        </div>
+      </div>
+      <input type="file" id="heroPhotoInput" accept="image/*" onchange="loadHeroPhoto(event)">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">자기소개</h2>
+    <div class="section-divider"></div>
+    <div class="about-grid">
+      <div>
+        <div class="about-info">
+          <div class="info-row"><span class="info-label">이름</span><span class="info-value editable" contenteditable="false">홍길동</span></div>
+          <div class="info-row"><span class="info-label">생년월일</span><span class="info-value editable" contenteditable="false">2007.03.15</span></div>
+          <div class="info-row"><span class="info-label">학교</span><span class="info-value editable" contenteditable="false">○○고등학교</span></div>
+          <div class="info-row"><span class="info-label">전공</span><span class="info-value editable" contenteditable="false">상업 계열</span></div>
+          <div class="info-row"><span class="info-label">자격증</span><span class="info-value editable" contenteditable="false">컴퓨터활용능력 1급</span></div>
+          <div class="info-row"><span class="info-label">어학</span><span class="info-value editable" contenteditable="false">토익 750</span></div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="editable" contenteditable="false" id="about-p1">저는 책임감과 성실함을 바탕으로 맡은 일을 끝까지 완수하는 사람입니다. 고등학교 3년간 학업과 다양한 활동을 병행하며 시간 관리 능력과 팀워크를 길렀습니다.</p>
+        <p class="editable" contenteditable="false" id="about-p2">특히 교내 동아리와 프로젝트 활동을 통해 실무에 가까운 경험을 쌓았으며, 이 과정에서 문제 해결 능력과 커뮤니케이션 스킬을 향상시켰습니다.</p>
+        <p class="editable" contenteditable="false" id="about-p3">앞으로도 지속적인 자기 계발을 통해 회사와 함께 성장하는 인재가 되고 싶습니다. 저의 열정과 가능성에 많은 기회를 주시면 반드시 기대 이상의 성과를 보여드리겠습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="section-inner">
+    <div class="section-label">Activities</div>
+    <h2 class="section-title">주요 교내외 활동</h2>
+    <div class="section-divider"></div>
+    <div class="activities-grid" id="activitiesGrid">
+      <div class="activity-card">
+        <button class="delete-btn" onclick="deleteCard(this,'activity-card')">✕</button>
+        <div class="activity-type editable" contenteditable="false">교내 활동</div>
+        <div class="activity-name editable" contenteditable="false">학생회 임원</div>
+        <div class="activity-period editable" contenteditable="false">2023.03 ~ 2024.02</div>
+        <div class="activity-desc editable" contenteditable="false">전교 학생회 홍보부장으로서 학교 행사 기획 및 SNS 홍보 업무를 담당하였습니다. 체육대회, 축제 등 대형 행사 운영에 참여하며 리더십과 조직력을 키웠습니다.</div>
+      </div>
+      <div class="activity-card">
+        <button class="delete-btn" onclick="deleteCard(this,'activity-card')">✕</button>
+        <div class="activity-type editable" contenteditable="false">교내 동아리</div>
+        <div class="activity-name editable" contenteditable="false">창업 동아리 'SPARK'</div>
+        <div class="activity-period editable" contenteditable="false">2023.03 ~ 현재</div>
+        <div class="activity-desc editable" contenteditable="false">창업 아이디어 발굴 및 비즈니스 모델 설계 활동. 교내 창업 대회에서 장려상을 수상하였으며, 기획서 작성 및 발표 역량을 향상시켰습니다.</div>
+      </div>
+      <div class="activity-card">
+        <button class="delete-btn" onclick="deleteCard(this,'activity-card')">✕</button>
+        <div class="activity-type editable" contenteditable="false">교외 활동</div>
+        <div class="activity-name editable" contenteditable="false">지역사회 봉사활동</div>
+        <div class="activity-period editable" contenteditable="false">2022.06 ~ 현재</div>
+        <div class="activity-desc editable" contenteditable="false">지역 복지관에서 매월 정기 봉사 활동 참여 (누적 100시간 이상). 독거노인 대상 생활 지원 및 행사 보조를 수행하며 공동체 의식을 함양하였습니다.</div>
+      </div>
+    </div>
+    <button class="add-card-btn" onclick="addActivityCard()">+ 활동 추가하기</button>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">프로젝트 경험</h2>
+    <div class="section-divider"></div>
+    <div class="projects-grid" id="projectsGrid">
+      <div class="project-card">
+        <button class="delete-btn" onclick="deleteCard(this,'project-card')">✕</button>
+        <div class="project-img" onclick="triggerProjectImg(this)">
+          <img src="" alt="" style="display:none">
+          <div class="img-placeholder">📂 프로젝트 이미지 추가</div>
+          <div class="img-edit-overlay"><span>이미지 변경</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-role editable" contenteditable="false">기획 · 디자인</div>
+          <div class="project-name editable" contenteditable="false">지역 청소년 취업박람회 홍보물 제작</div>
+          <div class="project-desc editable" contenteditable="false">지역 고용센터와 협력하여 청소년 취업박람회 홍보 포스터 및 SNS 카드뉴스를 제작하였습니다. 포토샵과 일러스트레이터를 활용하였으며 1,000명 이상에게 배포되었습니다.</div>
+          <div class="project-tags">
+            <span class="tag editable" contenteditable="false">Photoshop</span>
+            <span class="tag editable" contenteditable="false">Illustrator</span>
+            <span class="tag editable" contenteditable="false">기획</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <button class="delete-btn" onclick="deleteCard(this,'project-card')">✕</button>
+        <div class="project-img" onclick="triggerProjectImg(this)">
+          <img src="" alt="" style="display:none">
+          <div class="img-placeholder">📂 프로젝트 이미지 추가</div>
+          <div class="img-edit-overlay"><span>이미지 변경</span></div>
+        </div>
+        <div class="project-body">
+          <div class="project-role editable" contenteditable="false">팀장 · 발표</div>
+          <div class="project-name editable" contenteditable="false">교내 창업 아이디어 경진대회</div>
+          <div class="project-desc editable" contenteditable="false">4인 팀을 구성해 '고등학생 대상 중고 교재 거래 플랫폼' 아이디어를 기획하고 발표하였습니다. 시장조사, 수익모델 설계, PT 자료 제작까지 전 과정에 주도적으로 참여하여 장려상을 수상하였습니다.</div>
+          <div class="project-tags">
+            <span class="tag editable" contenteditable="false">기획서</span>
+            <span class="tag editable" contenteditable="false">Excel</span>
+            <span class="tag editable" contenteditable="false">PPT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="add-card-btn" onclick="addProjectCard()">+ 프로젝트 추가하기</button>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="section-label">Gallery</div>
+    <h2 class="section-title">작품 갤러리</h2>
+    <div class="section-divider"></div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item">
+        <button class="delete-btn" onclick="deleteCard(this,'gallery-item')">✕</button>
+        <div class="gallery-placeholder" onclick="triggerGalleryImg(this)">🖼️<br><span>이미지 업로드</span></div>
+        <div class="gallery-overlay"><span>변경</span></div>
+      </div>
+      <div class="gallery-item">
+        <button class="delete-btn" onclick="deleteCard(this,'gallery-item')">✕</button>
+        <div class="gallery-placeholder" onclick="triggerGalleryImg(this)">🖼️<br><span>이미지 업로드</span></div>
+        <div class="gallery-overlay"><span>변경</span></div>
+      </div>
+      <div class="gallery-item">
+        <button class="delete-btn" onclick="deleteCard(this,'gallery-item')">✕</button>
+        <div class="gallery-placeholder" onclick="triggerGalleryImg(this)">🖼️<br><span>이미지 업로드</span></div>
+        <div class="gallery-overlay"><span>변경</span></div>
+      </div>
+      <button class="add-gallery-btn" id="addGalleryBtn" onclick="addGalleryItem()" style="display:none">+ 사진 추가</button>
+    </div>
+    <input type="file" id="galleryInput" accept="image/*" onchange="loadGalleryImg(event)">
+    <input type="file" id="projectImgInput" accept="image/*" onchange="loadProjectImg(event)">
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="section-inner">
+    <div class="section-label">Video</div>
+    <h2 class="section-title">동영상</h2>
+    <div class="section-divider"></div>
+    <div class="videos-grid" id="videosGrid">
+      <div class="video-card">
+        <button class="delete-btn" onclick="deleteCard(this,'video-card')">✕</button>
+        <div class="video-embed">
+          <div class="video-placeholder" id="videoPlaceholder0">
+            🎬 아래에서 YouTube 링크를 입력하세요
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-title editable" contenteditable="false">포트폴리오 영상</div>
+          <div class="video-desc editable" contenteditable="false">자신을 소개하는 영상이나 프로젝트 시연 영상을 넣어보세요.</div>
+          <div style="margin-top:0.8rem;display:none" id="videoInputArea0" class="video-input-area">
+            <input type="text" id="videoUrl0" placeholder="YouTube URL 입력" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:0.85rem;margin-bottom:6px;background:var(--bg)">
+            <button onclick="embedVideo(0)" style="padding:6px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:var(--sans);font-size:0.83rem">적용</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="add-card-btn" onclick="addVideoCard()" id="addVideoBtn">+ 동영상 추가하기</button>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label" style="color:rgba(232,184,109,0.8)">Contact</div>
+    <h2 class="section-title">연락처</h2>
+    <div class="section-divider" style="background:var(--accent)"></div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div><div class="contact-label">이메일</div><div class="contact-value editable" contenteditable="false" style="color:#fff">example@email.com</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div><div class="contact-label">전화번호</div><div class="contact-value editable" contenteditable="false" style="color:#fff">010-0000-0000</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🏫</div>
+          <div><div class="contact-label">학교</div><div class="contact-value editable" contenteditable="false" style="color:#fff">○○고등학교 3학년</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🔗</div>
+          <div><div class="contact-label">SNS / 블로그</div><div class="contact-value editable" contenteditable="false" style="color:#fff">링크를 입력하세요</div></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <p style="font-size:0.9rem;color:rgba(255,255,255,0.7);margin-bottom:1.2rem">메시지 남기기</p>
+        <div class="form-group"><label>이름</label><input type="text" placeholder="성함을 입력해주세요"></div>
+        <div class="form-group"><label>이메일</label><input type="email" placeholder="이메일 주소"></div>
+        <div class="form-group"><label>메시지</label><textarea placeholder="문의 내용을 남겨주세요"></textarea></div>
+        <button class="btn-primary" style="width:100%">보내기</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="editable" contenteditable="false" id="footer-name">홍길동</span>의 포트폴리오 &nbsp;|&nbsp; 무단 복제 및 도용 금지
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="login-modal" id="loginModal">
+  <div class="login-box">
+    <button class="login-close" onclick="closeLogin()">✕</button>
+    <div class="login-title">관리자 로그인</div>
+    <div class="login-sub">포트폴리오 편집 모드로 전환합니다</div>
+    <div class="login-field"><label>아이디</label><input type="text" id="loginId" placeholder="아이디 입력"></div>
+    <div class="login-field"><label>비밀번호</label><input type="password" id="loginPw" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="login-err" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+    <button class="login-submit" onclick="doLogin()">로그인</button>
+  </div>
+</div>
+
+<!-- EDIT BAR -->
+<div class="edit-bar" id="editBar">
+  <span>✏️ 편집 모드 활성화</span>
+  <button class="btn-add btn" onclick="alert('원하는 섹션으로 스크롤하여 + 버튼으로 추가하세요!')">도움말</button>
+  <button class="btn-save btn" onclick="saveAndExit()">저장 완료</button>
+  <button class="btn-logout btn" onclick="logoutAdmin()">로그아웃</button>
+</div>
+<div class="edit-badge" id="editBadge">✏️ 편집 중</div>
+
+<script>
+const ADMIN_ID='qwer1234';
+const ADMIN_PW='qwer1234';
+let isAdmin=false;
+let currentGalleryTarget=null;
+let currentProjectTarget=null;
+let videoCount=1;
+
+function openLogin(){
+  if(isAdmin){logoutAdmin();return;}
+  document.getElementById('loginModal').classList.add('open');
+  document.getElementById('loginId').focus();
+}
+function closeLogin(){
+  document.getElementById('loginModal').classList.remove('open');
+  document.getElementById('loginErr').style.display='none';
+}
+function doLogin(){
+  const id=document.getElementById('loginId').value;
+  const pw=document.getElementById('loginPw').value;
+  if(id===ADMIN_ID&&pw===ADMIN_PW){
+    isAdmin=true;
+    enterEditMode();
+    closeLogin();
+  } else {
+    document.getElementById('loginErr').style.display='block';
+  }
+}
+function enterEditMode(){
+  document.body.classList.add('edit-mode');
+  document.querySelectorAll('.editable').forEach(el=>el.setAttribute('contenteditable','true'));
+  document.getElementById('editBar').classList.add('show');
+  document.getElementById('editBadge').classList.add('show');
+  document.getElementById('adminToggleBtn').textContent='편집 중';
+  document.getElementById('adminToggleBtn').classList.add('active');
+  document.querySelectorAll('.video-input-area').forEach(el=>el.style.display='block');
+  document.getElementById('photoEditOverlay').style.display='';
+  document.getElementById('addGalleryBtn').style.display='flex';
+  document.getElementById('addVideoBtn').style.display='block';
+}
+function saveAndExit(){
+  alert('변경 사항이 저장되었습니다!');
+  exitEditMode();
+}
+function logoutAdmin(){
+  exitEditMode();
+}
+function exitEditMode(){
+  isAdmin=false;
+  document.body.classList.remove('edit-mode');
+  document.querySelectorAll('.editable').forEach(el=>el.setAttribute('contenteditable','false'));
+  document.getElementById('editBar').classList.remove('show');
+  document.getElementById('editBadge').classList.remove('show');
+  document.getElementById('adminToggleBtn').textContent='관리자';
+  document.getElementById('adminToggleBtn').classList.remove('active');
+  document.querySelectorAll('.video-input-area').forEach(el=>el.style.display='none');
+  document.getElementById('photoEditOverlay').style.display='none';
+  document.getElementById('addGalleryBtn').style.display='none';
+  document.getElementById('addVideoBtn').style.display='none';
+}
+function triggerPhotoUpload(){
+  if(!isAdmin)return;
+  document.getElementById('heroPhotoInput').click();
+}
+function loadHeroPhoto(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    const img=document.getElementById('heroPhotoImg');
+    img.src=ev.target.result;
+    img.style.display='block';
+    document.getElementById('heroPhotoPlaceholder').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+function triggerGalleryImg(el){
+  if(!isAdmin)return;
+  currentGalleryTarget=el.closest('.gallery-item');
+  document.getElementById('galleryInput').click();
+}
+function loadGalleryImg(e){
+  const file=e.target.files[0];
+  if(!file||!currentGalleryTarget)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    const existing=currentGalleryTarget.querySelector('img');
+    if(existing){
+      existing.src=ev.target.result;
+      existing.style.display='block';
+      const ph=currentGalleryTarget.querySelector('.gallery-placeholder');
+      if(ph)ph.style.display='none';
+    } else {
+      const img=document.createElement('img');
+      img.src=ev.target.result;
+      img.style.cssText='width:100%;height:100%;object-fit:cover';
+      currentGalleryTarget.querySelector('.gallery-placeholder').style.display='none';
+      currentGalleryTarget.insertBefore(img,currentGalleryTarget.firstChild);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+function addGalleryItem(){
+  const grid=document.getElementById('galleryGrid');
+  const btn=document.getElementById('addGalleryBtn');
+  const item=document.createElement('div');
+  item.className='gallery-item';
+  item.innerHTML=`<button class="delete-btn" onclick="deleteCard(this,'gallery-item')" style="${isAdmin?'display:flex':''}">✕</button><div class="gallery-placeholder" onclick="triggerGalleryImg(this)">🖼️<br><span>이미지 업로드</span></div><div class="gallery-overlay"><span>변경</span></div>`;
+  grid.insertBefore(item,btn);
+}
+function triggerProjectImg(el){
+  if(!isAdmin)return;
+  currentProjectTarget=el;
+  document.getElementById('projectImgInput').click();
+}
+function loadProjectImg(e){
+  const file=e.target.files[0];
+  if(!file||!currentProjectTarget)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    let img=currentProjectTarget.querySelector('img');
+    const ph=currentProjectTarget.querySelector('.img-placeholder');
+    if(!img){img=document.createElement('img');currentProjectTarget.prepend(img);}
+    img.src=ev.target.result;
+    img.style.display='block';
+    if(ph)ph.style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+function deleteCard(btn,cls){
+  if(!confirm('삭제하시겠습니까?'))return;
+  btn.closest('.'+cls).remove();
+}
+function addActivityCard(){
+  const grid=document.getElementById('activitiesGrid');
+  const card=document.createElement('div');
+  card.className='activity-card';
+  card.innerHTML=`<button class="delete-btn" onclick="deleteCard(this,'activity-card')" style="display:flex">✕</button><div class="activity-type editable" contenteditable="true">활동 유형</div><div class="activity-name editable" contenteditable="true">활동명을 입력하세요</div><div class="activity-period editable" contenteditable="true">기간 입력</div><div class="activity-desc editable" contenteditable="true">활동에 대한 설명을 입력하세요.</div>`;
+  grid.appendChild(card);
+}
+function addProjectCard(){
+  const grid=document.getElementById('projectsGrid');
+  const card=document.createElement('div');
+  card.className='project-card';
+  card.innerHTML=`<button class="delete-btn" onclick="deleteCard(this,'project-card')" style="display:flex">✕</button><div class="project-img" onclick="triggerProjectImg(this)"><img src="" alt="" style="display:none"><div class="img-placeholder">📂 프로젝트 이미지 추가</div><div class="img-edit-overlay"><span>이미지 변경</span></div></div><div class="project-body"><div class="project-role editable" contenteditable="true">역할</div><div class="project-name editable" contenteditable="true">프로젝트명을 입력하세요</div><div class="project-desc editable" contenteditable="true">프로젝트 설명을 입력하세요.</div><div class="project-tags"><span class="tag editable" contenteditable="true">태그</span></div></div>`;
+  grid.appendChild(card);
+}
+function addVideoCard(){
+  const grid=document.getElementById('videosGrid');
+  const idx=videoCount++;
+  const card=document.createElement('div');
+  card.className='video-card';
+  card.innerHTML=`<button class="delete-btn" onclick="deleteCard(this,'video-card')" style="display:flex">✕</button><div class="video-embed"><div class="video-placeholder" id="videoPlaceholder${idx}">🎬 아래에서 YouTube 링크를 입력하세요</div></div><div class="video-info"><div class="video-title editable" contenteditable="true">동영상 제목</div><div class="video-desc editable" contenteditable="true">동영상 설명을 입력하세요.</div><div style="margin-top:0.8rem" class="video-input-area"><input type="text" id="videoUrl${idx}" placeholder="YouTube URL 입력" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:0.85rem;margin-bottom:6px;background:var(--bg)"><button onclick="embedVideo(${idx})" style="padding:6px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:var(--sans);font-size:0.83rem">적용</button></div></div>`;
+  grid.appendChild(card);
+}
+function embedVideo(idx){
+  const url=document.getElementById('videoUrl'+idx).value.trim();
+  if(!url){alert('URL을 입력해주세요');return;}
+  let videoId='';
+  const match=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&\n?]+)/);
+  if(match)videoId=match[1];
+  if(!videoId){alert('올바른 YouTube URL을 입력해주세요');return;}
+  const embedUrl=`https://www.youtube.com/embed/${videoId}`;
+  const placeholder=document.getElementById('videoPlaceholder'+idx);
+  const embedDiv=placeholder?placeholder.parentElement:null;
+  if(embedDiv){
+    embedDiv.innerHTML=`<iframe src="${embedUrl}" allowfullscreen></iframe>`;
+  }
+}
+</script>
+</body>
+</html>
